@@ -1,5 +1,6 @@
 package com.ctech.shockman.geoquiz2;
 
+// This holds the question information
 public class Question {
     private int mTextResId;
     private boolean mAnswerTrue;
