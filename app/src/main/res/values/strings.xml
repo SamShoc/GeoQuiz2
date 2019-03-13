@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">GeoQuiz</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+    <string name="next_button">Next</string>
+    <string name="correct_toast">Correct!</string>
+    <string name="incorrect_toast">Incorrect!</string>
+    <string name="next_button_content_description">Go to the next question.</string>
+    <string name="prev_button_content_description">Go to the previous question.</string>
+    <string name="question_australia">Canberra is the capital of Australia.</string>
+    <string name="question_oceans">Century is the best school.</string>
+    <string name="question_mideast">JM has a good football team</string>
+    <string name="question_africa">Minnesota is a very hot place year round.</string>
+    <string name="question_americas">Canada is north of Minnesota.</string>
+    <string name="question_asia">An apple a day keeps the doctor away.</string>
+</resources>
