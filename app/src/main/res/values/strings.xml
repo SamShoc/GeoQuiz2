@@ -8,9 +8,13 @@
     <string name="next_button_content_description">Go to the next question.</string>
     <string name="prev_button_content_description">Go to the previous question.</string>
     <string name="question_australia">Canberra is the capital of Australia.</string>
-    <string name="question_oceans">Century is the best school.</string>
-    <string name="question_mideast">JM has a good football team</string>
-    <string name="question_africa">Minnesota is a very hot place year round.</string>
-    <string name="question_americas">Canada is north of Minnesota.</string>
-    <string name="question_asia">An apple a day keeps the doctor away.</string>
+    <string name="question_a">Century is the best school.</string>
+    <string name="question_b">JM has a good football team</string>
+    <string name="question_c">Minnesota is a very hot place year round.</string>
+    <string name="question_d">Canada is north of Minnesota.</string>
+    <string name="question_e">An apple a day keeps the doctor away.</string>
+    <string name="warning_text">Warning, you are now cheating</string>
+    <string name="show_answer_button">Show answer</string>
+    <string name="cheat_button">Cheat</string>
+    <string name="judgement_toast">You a bad person</string>
 </resources>

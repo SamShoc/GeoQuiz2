@@ -1,6 +1,7 @@
 package com.ctech.shockman.geoquiz2;
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,22 +14,24 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    private static final String KEY_INDEX = "index";
 
     private Button mTrueButton;
     private Button mFalseButton;
     private ImageButton mNextButton;
     private ImageButton mPrevButton;
+    private Button mCheatButton;
 
     private TextView mQuestionTextView;
 
     private Question[] mQuestionBank = new Question[]{
 
             new Question(R.string.question_australia, true),
-            new Question(R.string.question_oceans, true),
-            new Question(R.string.question_mideast, false),
-            new Question(R.string.question_africa, false),
-            new Question(R.string.question_americas, true),
-            new Question(R.string.question_asia, true),
+            new Question(R.string.question_a, true),
+            new Question(R.string.question_b, false),
+            new Question(R.string.question_c, false),
+            new Question(R.string.question_d, true),
+            new Question(R.string.question_e, true),
 
     };
 
@@ -42,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate(Bundle) has been called!");
 
         setContentView(R.layout.activity_main);
+
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
 
 
         mQuestionTextView = findViewById(R.id.question_text_view);
@@ -92,6 +99,15 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        mCheatButton = findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MainActivity.this, CheatActivity.class);
+                startActivity(intent);
+            }
+        });
+
         updateQuestion();
     }
 
@@ -111,6 +127,12 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause has been called!");
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG,"onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
     }
 
     @Override
