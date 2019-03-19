@@ -1,6 +1,7 @@
 package com.ctech.shockman.geoquiz2;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,12 +16,14 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private static final String KEY_INDEX = "index";
+    private static final int REQUEST_CODE_CHEAT = 0;
 
     private Button mTrueButton;
     private Button mFalseButton;
     private ImageButton mNextButton;
     private ImageButton mPrevButton;
     private Button mCheatButton;
+
 
     private TextView mQuestionTextView;
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private int mCurrentIndex = 0;
+    private boolean mIsCheater;
 
 
     @Override
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                mIsCheater = false;
 
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 updateQuestion();
@@ -103,12 +108,27 @@ public class MainActivity extends AppCompatActivity {
         mCheatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(MainActivity.this, CheatActivity.class);
-                startActivity(intent);
+                //Intent intent= new Intent(MainActivity.this, CheatActivity.class);
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+                Intent intent = CheatActivity.newIntent(MainActivity.this, answerIsTrue);
+                startActivityForResult(intent, REQUEST_CODE_CHEAT);
             }
         });
 
         updateQuestion();
+    }//end onCreate
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            if (data == null) {
+                return;
+            }
+            mIsCheater = CheatActivity.wasAnswerShown(data);
+        }
     }
 
     @Override
@@ -128,10 +148,11 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         Log.d(TAG, "onPause has been called!");
     }
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        Log.i(TAG,"onSaveInstanceState");
+        Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
     }
 
@@ -159,15 +180,18 @@ public class MainActivity extends AppCompatActivity {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
 
         int messageResourceId = 0;
-
-        if (userPressedTrue == answerIsTrue) {
-            messageResourceId = R.string.correct_toast;
+        if (mIsCheater) {
+            messageResourceId = R.string.judgement_toast;
         } else {
-            messageResourceId = R.string.incorrect_toast;
-        }
 
-        // you can make fancier Toast here if you want (from previous challenge)
-        Toast.makeText(this, messageResourceId, Toast.LENGTH_SHORT).show();
+            if (userPressedTrue == answerIsTrue) {
+                messageResourceId = R.string.correct_toast;
+            } else {
+                messageResourceId = R.string.incorrect_toast;
+            }
+
+            Toast.makeText(this, messageResourceId, Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
