@@ -24,5 +24,10 @@
         android:id="@+id/show_answer_button"
         android:padding="24dp"
         android:text="@string/show_answer_button"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/go_back_button"
+        android:text="Go Back"/>
 
 </LinearLayout>

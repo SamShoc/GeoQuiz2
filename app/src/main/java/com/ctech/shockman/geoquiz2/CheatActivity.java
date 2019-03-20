@@ -16,6 +16,8 @@ public class CheatActivity extends AppCompatActivity {
     private boolean mAnswerIsTrue;
     private TextView mAnswerTextView;
     private Button mShowAnswerButton;
+    private Button mGoBackButton;
+    private static final int PLACEHOLDER = 0;
 
 
     public static Intent newIntent(Context packageContext, boolean answerIsTrue) {
@@ -24,7 +26,7 @@ public class CheatActivity extends AppCompatActivity {
         return intent;
     }
     //debug
-    public static boolean wasAnserShown(Intent result) {
+    public static boolean wasAnswerShown(Intent result) {
         return result.getBooleanExtra(EXTRA_ANSWER_WAS_SHOWN, false);
     }
 
@@ -38,6 +40,8 @@ public class CheatActivity extends AppCompatActivity {
 
         mAnswerTextView = findViewById(R.id.answer_text_view);
         mShowAnswerButton = findViewById(R.id.show_answer_button);
+        mGoBackButton = findViewById(R.id.go_back_button);
+
 
         mShowAnswerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,8 +54,16 @@ public class CheatActivity extends AppCompatActivity {
                 setAnswerShownResult(true);
             }
         });
+        mGoBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(CheatActivity .this, MainActivity.class);
+                startActivityForResult(intent, PLACEHOLDER);
+            }
+        });
 
     }
+
     private void setAnswerShownResult(boolean isAnswerShown) {
         Intent toReturn = new Intent();
         toReturn.putExtra(EXTRA_ANSWER_WAS_SHOWN, isAnswerShown);
