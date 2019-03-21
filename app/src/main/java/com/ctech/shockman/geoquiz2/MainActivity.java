@@ -111,9 +111,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Intent intent= new Intent(MainActivity.this, CheatActivity.class);
                 mCheat = (mCheat + 1);
-                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
-                Intent intent = CheatActivity.newIntent(MainActivity.this, answerIsTrue);
-                startActivityForResult(intent, REQUEST_CODE_CHEAT);
+                if (mCheat == 3) {
+
+                } else {
+                    boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+                    Intent intent = CheatActivity.newIntent(MainActivity.this, answerIsTrue);
+                    startActivityForResult(intent, REQUEST_CODE_CHEAT);
+                }
             }
         });
 
@@ -182,6 +186,9 @@ public class MainActivity extends AppCompatActivity {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
 
         int messageResourceId = 0;
+        if (mCheat == 3) {
+            messageResourceId = R.string.cheater_toast;
+        }
         if (mIsCheater) {
             messageResourceId = R.string.judgement_toast;
         } else {
