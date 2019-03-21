@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -111,8 +112,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Intent intent= new Intent(MainActivity.this, CheatActivity.class);
                 mCheat = (mCheat + 1);
+                mIsCheater = true;
                 if (mCheat == 3) {
-
+                    mCheatButton.setEnabled(false);
                 } else {
                     boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
                     Intent intent = CheatActivity.newIntent(MainActivity.this, answerIsTrue);
@@ -189,16 +191,17 @@ public class MainActivity extends AppCompatActivity {
         if (mCheat == 3) {
             messageResourceId = R.string.cheater_toast;
         }
-        if (mIsCheater) {
+        if (mIsCheater == true) {
             messageResourceId = R.string.judgement_toast;
-        } else {
+
+        }  else {
 
             if (userPressedTrue == answerIsTrue) {
                 messageResourceId = R.string.correct_toast;
             } else {
                 messageResourceId = R.string.incorrect_toast;
             }
-
+            //Toast.setGravity(25,25,50);
             Toast.makeText(this, messageResourceId, Toast.LENGTH_SHORT).show();
         }
     }
